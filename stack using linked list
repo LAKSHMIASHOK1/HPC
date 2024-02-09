@@ -1,0 +1,117 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Stack {
+    private Node top;
+
+    Stack() {
+        this.top = null;
+    }
+
+    // Method to push an element onto the stack
+    void push(int data) {
+        Node newNode = new Node(data);
+        if (top == null) {
+            top = newNode;
+        } else {
+            newNode.next = top;
+            top = newNode;
+        }
+        System.out.println("Element pushed onto the stack: " + data);
+    }
+
+    // Method to pop an element from the stack
+    void pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty! Cannot pop.");
+            return;
+        }
+        System.out.println("Element popped from the stack: " + top.data);
+        top = top.next;
+    }
+
+    // Method to peek the top element of the stack
+    void peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty! Cannot peek.");
+            return;
+        }
+        System.out.println("Top element of the stack: " + top.data);
+    }
+
+    // Method to check if the stack is empty
+    boolean isEmpty() {
+        return top == null;
+    }
+
+    // Method to display the stack
+    void display() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty!");
+            return;
+        }
+        System.out.println("Stack:");
+        Node temp = top;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Stack stack = new Stack();
+
+        System.out.print("Enter the number of elements to push onto the stack: ");
+        int n = scanner.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter element " + (i + 1) + ": ");
+            stack.push(scanner.nextInt());
+        }
+
+        while (true) {
+            System.out.println("\nChoose an operation:");
+            System.out.println("1. Push element onto the stack");
+            System.out.println("2. Pop element from the stack");
+            System.out.println("3. Peek the top element of the stack");
+            System.out.println("4. Display the stack");
+            System.out.println("5. Exit");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter element to push: ");
+                    stack.push(scanner.nextInt());
+                    break;
+                case 2:
+                    stack.pop();
+                    break;
+                case 3:
+                    stack.peek();
+                    break;
+                case 4:
+                    stack.display();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice! Please enter a valid option.");
+            }
+        }
+    }
+}
