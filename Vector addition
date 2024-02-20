@@ -1,1 +1,56 @@
+#include <stdlib.h>   // malloc and free
+#include <stdio.h>    // printf
+
+int main() {
+    int *a, *b, *c;
+    int n, i;
+
+    // Ask the user for the size of the arrays
+    printf("Enter the size of the arrays: ");
+    scanf("%d", &n);
+
+    // Allocate memory for the arrays
+    a = (int *)malloc(sizeof(int) * n);
+    b = (int *)malloc(sizeof(int) * n);
+    c = (int *)malloc(sizeof(int) * n);
+
+    // Check for malloc failures
+    if (a == NULL || b == NULL || c == NULL) {
+        printf("Memory allocation failed. Exiting...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Ask the user to input elements for array a
+    printf("Enter elements for array a:\n");
+    for (i = 0; i < n; i++) {
+        printf("Enter element %d: ", i);
+        scanf("%d", &a[i]);
+    }
+
+    // Ask the user to input elements for array b
+    printf("Enter elements for array b:\n");
+    for (i = 0; i < n; i++) {
+        printf("Enter element %d: ", i);
+        scanf("%d", &b[i]);
+    }
+
+    // Perform vector addition
+    for (i = 0; i < n; i++) {
+        c[i] = a[i] + b[i];
+    }
+
+    // Display the result
+    printf("Result of vector addition:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", c[i]);
+    }
+    printf("\n");
+
+    // Clean up memory
+    free(a);
+    free(b);
+    free(c);
+
+    return 0;
+}
 
