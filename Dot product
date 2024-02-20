@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *a, *b;
+    int n, i;
+    int dot_product = 0;
+
+    // Ask the user for the size of the vectors
+    printf("Enter the size of the vectors: ");
+    scanf("%d", &n);
+
+    // Allocate memory for the vectors
+    a = (int *)malloc(sizeof(int) * n);
+    b = (int *)malloc(sizeof(int) * n);
+
+    // Check for malloc failures
+    if (a == NULL || b == NULL) {
+        printf("Memory allocation failed. Exiting...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Ask the user to input elements for vector a
+    printf("Enter elements for vector a:\n");
+    for (i = 0; i < n; i++) {
+        printf("Enter element %d: ", i);
+        scanf("%d", &a[i]);
+    }
+
+    // Ask the user to input elements for vector b
+    printf("Enter elements for vector b:\n");
+    for (i = 0; i < n; i++) {
+        printf("Enter element %d: ", i);
+        scanf("%d", &b[i]);
+    }
+
+    // Calculate the dot product
+    for (i = 0; i < n; i++) {
+        dot_product += a[i] * b[i];
+    }
+
+    // Display the dot product
+    printf("Dot product of the two vectors: %d\n", dot_product);
+
+    // Clean up memory
+    free(a);
+    free(b);
+
+    return 0;
+}
