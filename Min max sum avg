@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+int main() {
+    int *arr;
+    int n, i;
+    int min_val, max_val, sum_val;
+    double avg_val;
+
+    // Ask the user for the size of the array
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    // Allocate memory for the array
+    arr = (int *)malloc(sizeof(int) * n);
+
+    // Check for malloc failure
+    if (arr == NULL) {
+        printf("Memory allocation failed. Exiting...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Ask the user to input elements for the array
+    printf("Enter elements for the array:\n");
+    for (i = 0; i < n; i++) {
+        printf("Enter element %d: ", i);
+        scanf("%d", &arr[i]);
+    }
+
+    // Parallel reduction for minimum, maximum, sum
+    #pragma omp parallel for reduction(min:min_val) reduction(max:max_val) reduction(+:sum_val)
+    for (i = 0; i < n; i++) {
+        if (i == 0) {
+            min_val = arr[i];
+            max_val = arr[i];
+        } else {
+            if (arr[i] < min_val) {
+                min_val = arr[i];
+            }
+            if (arr[i] > max_val) {
+                max_val = arr[i];
+            }
+        }
+        sum_val += arr[i];
+    }
+
+    // Calculate average
+    avg_val = (double)sum_val / n;
+
+    // Display results
+    printf("Minimum value: %d\n", min_val);
+    printf("Maximum value: %d\n", max_val);
+    printf("Sum: %d\n", sum_val);
+    printf("Average: %.2f\n", avg_val);
+
+    // Clean up memory
+    free(arr);
+
+    return 0;
+}
